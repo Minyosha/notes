@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks</title>
+</head>
+<body>
+<h2>View notes</h2>
+<table border="1">
+    <tr class="headerRow">
+        <th>id</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Created</th>
+    </tr>
+    <tr th:each="t: ${notes}">
+        <td th:text="${t.id}"></td>
+        <td th:text="${t.description}"></td>
+        <td th:text="${t.status}"></td>
+        <td th:text="${t.created}"></td>
+    </tr>
+</table>
+
+<h2>View notes by status</h2>
+<a th:href="@{/notes-by-status}">View notes by status</a>
+
+
+<h2>Add a note</h2>
+<form th:action="@{/notes}" method="post">
+    Description: <input type="text" name="description" th:value="${note?.description}"/>
+    Status: <select name="status">
+    <option value="NOT_STARTED" th:selected="${note?.status == 'NOT_STARTED'}">Not Started</option>
+    <option value="IN_PROGRESS" th:selected="${note?.status == 'IN_PROGRESS'}">In Progress</option>
+    <option value="COMPLETED" th:selected="${note?.status == 'COMPLETED'}">Completed</option>
+</select>
+    <button type="submit">Add note</button>
+</form>
+
+<h2>Update a note by id</h2>
+<form th:action="@{/notes-update-by-id}" method="post">
+    <input type="number" name="id" placeholder="Enter ID to update" required>
+    Status: <select name="status">
+    <option value="NOT_STARTED" th:selected="${note?.status == 'NOT_STARTED'}">Not Started</option>
+    <option value="IN_PROGRESS" th:selected="${note?.status == 'IN_PROGRESS'}">In Progress</option>
+    <option value="COMPLETED" th:selected="${note?.status == 'COMPLETED'}">Completed</option>
+</select>
+    <button type="submit">Update note by ID</button>
+</form>
+
+<h2>Delete a note by id</h2>
+<form th:action="@{/notes-delete-by-id}" method="post">
+    <input type="number" name="id" placeholder="Enter ID to delete" required>
+    <button type="submit">Delete note by ID</button>
+</form>
+
+<h2>Delete all notes</h2>
+<form th:action="@{/notes-deleteAll}" method="post">
+    <input type="submit" value="Delete all notes">
+</form>
+</body>
+</html>

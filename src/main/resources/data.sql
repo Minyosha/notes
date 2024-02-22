@@ -1,0 +1,1 @@
+insert into notes (title, content, created) values ('Simple note', 'Write your note', now());
